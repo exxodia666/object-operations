@@ -5,7 +5,6 @@ function test() {
     console.log('Objects equal: ', checkObjects(initialObject, clonedObj));
 }
 function deepIteration(obj, array) {
-    if (array === void 0) { array = []; }
     for (var key in obj) {
         if (typeof obj[key] === 'object') {
             deepIteration(obj[key], array);
@@ -17,9 +16,7 @@ function deepIteration(obj, array) {
     return array;
 }
 function checkObjects(obj1, obj2) {
-    var _a = [deepIteration(obj1), deepIteration(obj2)], arr1 = _a[0], arr2 = _a[1];
-    for (var i = 0; i < arr1.length; i++) {
-        //@ts-ignore
+       for (var i = 0; i < arr1.length; i++) {
         if (arr1[i][1] !== arr2[i][1]) {
             return false;
         }
@@ -30,7 +27,6 @@ function checkObjects(obj1, obj2) {
     return true;
 }
 function deepClone(object, result) {
-    if (result === void 0) { result = {}; }
     for (var key in object) {
         if (typeof object[key] === 'object') {
             result[key] = deepClone(object[key]);
