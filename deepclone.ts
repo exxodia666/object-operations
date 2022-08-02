@@ -22,7 +22,6 @@ function deepIteration<T>(
 function checkObjects<T, K>(obj1: T, obj2: K) {
   const [arr1, arr2] = [deepIteration(obj1), deepIteration(obj2)]
   for (let i = 0; i < arr1.length; i++) {
-    //@ts-ignore
     if (arr1[i][1] !== arr2[i][1]) {
       return false
     } else {
