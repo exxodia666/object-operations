@@ -1,0 +1,15 @@
+{
+  "name": "deep_clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "deepclone.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Spike666",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.7.2",
+    "@types/node": "^18.11.18"
+  }
+}
