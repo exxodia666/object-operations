@@ -1,22 +1,18 @@
-function test() {
-  initialObject.size.block.height = 100
-  console.log(deepIteration(initialObject))
-  console.log(deepIteration(clonedObj))
-  console.log('Objects equal: ', checkObjects(initialObject, clonedObj))
-}
-
-function deepIteration<T>(
-  obj: T | T[Extract<keyof T, string>],
-  array: Array<[string, typeof obj[keyof typeof obj]]> = []
-): Array<[string, typeof obj[keyof typeof obj]]> {
-  for (let key in obj as Object) {
-    if (typeof obj[key] === 'object') {
-      deepIteration(obj[key], array)
-    } else {
-      array.push([key, obj[key]])
+import { CheckResult, IteratedObject } from "./type";
+//
+export function deepIteration(
+    obj: any,
+    array: IteratedObject[] = [],
+    path: string = 'root'
+): IteratedObject[] {
+    for (let key in obj) {
+        if (typeof obj[key] === 'object') {
+            deepIteration(obj[key], array, `${path}.${key}`)
+        } else {
+            array.push({ path: `${path}.${key}`, value: obj[key] })
+        }
     }
-  }
-  return array
+    return array
 }
 
 function checkObjects<T, K>(obj1: T, obj2: K) {
