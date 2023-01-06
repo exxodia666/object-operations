@@ -1,4 +1,4 @@
-import { CheckResult, IteratedObject } from "./type";
+import { CheckResult, IteratedObject } from "./type.js";
 //
 export function deepIteration(
     obj: any,

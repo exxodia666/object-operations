@@ -1,5 +1,5 @@
-import { a1, b1, a2, b2, a3, b3, a4, b4, a5, b5 } from "./objects";
-import {checkObjects, deepClone, deepIteration} from "./deepclone";
+import { a1, b1, a2, b2, a3, b3, a4, b4, a5, b5 } from "./src/objects.js";
+import { checkObjects } from "./src/deepclone.js";
 
 function test() {
     console.log('FIRST')
