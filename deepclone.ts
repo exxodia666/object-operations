@@ -14,21 +14,36 @@ export function deepIteration(
     }
     return array
 }
-
-function checkObjects<T, K>(obj1: T, obj2: K) {
-  const [arr1, arr2] = [deepIteration(obj1), deepIteration(obj2)]
-  for (let i = 0; i < arr1.length; i++) {
-    if (arr1[i][1] !== arr2[i][1]) {
-      return false
-    } else {
-      continue
-    }
-  }
-  return true
+//
+export function checkObjects<T, K>(obj1: T, obj2: K) {
+    const result: CheckResult[] = []
+    const [map1, map2] = [arrayToMap(deepIteration(obj1)), arrayToMap(deepIteration(obj2))]
+    // step 1 - mapping
+    map1.forEach((value1, key) => {
+        const value2 = map2.get(key)
+        if (value2 !== value1) {
+            result.push({
+                path: key,
+                value1,
+                value2
+            })
+            map2.delete(key)
+        } else {
+            map2.delete(key)
+        }
+    })
+    // step2 - dof*king
+    map2.forEach((value2, key) => {
+        result.push({
+            path: key,
+            value1: undefined,
+            value2
+        })
+    })
+    return result
 }
-
-
-function deepClone(object: any, result: any = {}) {
+//
+export function deepClone(object: any, result: any = {}) {
   for (let key in object) {
     if (typeof object[key] === 'object') {
       result[key] = deepClone(object[key])
@@ -38,21 +53,9 @@ function deepClone(object: any, result: any = {}) {
   }
   return result
 }
-
-const initialObject = {
-  color: 'white',
-  isValid: true,
-  size: {
-    width: 10,
-    height: 10,
-    block: {
-      isValid: true,
-      width: 30,
-      height: 30
-    }
-  }
+//
+function arrayToMap(array: IteratedObject[]): Map<string, any> {
+    const result = new Map();
+    array.forEach(element => result.set(element.path, element.value))
+    return result
 }
-
-const clonedObj = deepClone(initialObject)
-
-test()
